@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.usjt.ads.arqdes.model.entity.Filme;
 
@@ -23,7 +24,6 @@ public class FilmeDAO
 		try ( Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sSQL); )
 		{
-
 			pst.setString(1, filme.getTitulo());
 			pst.setString(2, filme.getDescricao());
 			pst.setString(3, filme.getDiretor());
@@ -33,13 +33,11 @@ public class FilmeDAO
 			pst.setInt(7, filme.getGenero().getId());
 			pst.execute();
 
-			// obter o id criado
 			sQuery = " SELECT LAST_INSERT_ID() ";
 			
 			try ( PreparedStatement pstAux = conn.prepareStatement(sQuery);
 					ResultSet resultSet = pstAux.executeQuery(); )
 			{
-
 				if ( resultSet.next() )
 				{
 					iId = resultSet.getInt(1);
@@ -53,6 +51,32 @@ public class FilmeDAO
 		}
 		
 		return iId;
+	}
+	
+	public void atualizarFilme(Filme filme) throws IOException
+	{
+		String sSQL = "";
+		
+		sSQL = " UPDATE Filme SET titulo = ?, descricao = ?, diretor = ?, posterpath = ?, popularidade = ?, data_lancamento = ?, id_genero = ? WHERE id = ?";
+		
+		try ( Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(sSQL); )
+		{
+			pst.setString(1, filme.getTitulo());
+			pst.setString(2, filme.getDescricao());
+			pst.setString(3, filme.getDiretor());
+			pst.setString(4, filme.getPosterPath());
+			pst.setDouble(5, filme.getPopularidade());
+			pst.setDate(6, new Date(filme.getDataLancamento().getTime()));
+			pst.setInt(7, filme.getGenero().getId());
+			pst.setInt(8, filme.getId());
+			pst.execute();
+		}
+		catch ( SQLException err )
+		{
+			err.printStackTrace();
+			throw new IOException(err);
+		}
 	}
 
 	public Filme buscarFilme(int iId) throws IOException
@@ -95,6 +119,47 @@ public class FilmeDAO
 		return filme;
 	}
 	
+	public ArrayList<Filme> listarFilmes() throws IOException
+	{
+		ArrayList<Filme> arrFilmes = null;
+		String sSQL = "";
+		Filme filme = null;
+		GeneroDAO generoDAO = null;
+		
+		sSQL = " SELECT * FROM Filme ORDER BY titulo ";
+		
+		arrFilmes = new ArrayList<Filme>();
+		
+		try ( Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement pst = conn.prepareStatement(sSQL);
+				ResultSet resultSet = pst.executeQuery(); )
+		{
+			while ( resultSet.next() )
+			{
+				generoDAO = new GeneroDAO();
+
+				filme = new Filme();
+				filme.setId(resultSet.getInt("id"));
+				filme.setTitulo(resultSet.getString("titulo"));
+				filme.setDescricao(resultSet.getString("descricao"));
+				filme.setDiretor(resultSet.getString("diretor"));
+				filme.setPosterPath(resultSet.getString("posterpath"));
+				filme.setPopularidade(resultSet.getDouble("popularidade"));
+				filme.setDataLancamento(resultSet.getDate("data_lancamento"));
+				filme.setGenero(generoDAO.buscarGenero(resultSet.getInt("id_genero")));
+				
+				arrFilmes.add(filme);
+			}
+		}
+		catch ( SQLException err )
+		{
+			err.printStackTrace();
+			throw new IOException(err);
+		}
+		
+		return arrFilmes;
+	}
+	
 	public void removerFilme(int iId) throws IOException
 	{
 		String sSQL = "";
@@ -112,9 +177,5 @@ public class FilmeDAO
 			err.printStackTrace();
 			throw new IOException(err);
 		}
-	}
-	
-	public void atualizarFilme(Filme filme) throws IOException
-	{
 	}
 }
