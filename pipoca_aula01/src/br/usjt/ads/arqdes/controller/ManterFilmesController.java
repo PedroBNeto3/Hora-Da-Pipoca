@@ -112,23 +112,6 @@ public class ManterFilmesController extends HttpServlet
 				
 				break;
 			}
-			case "remover":
-			{
-				String sIdAux = request.getParameter("id");
-				
-				if ( !sIdAux.trim().equals("") )
-				{
-					int iId = Integer.parseInt(sIdAux);
-					
-					fService = new FilmeService();
-					fService.removerFilme(iId);
-		
-					dispatcher = request.getRequestDispatcher("RemoverFilme.jsp");
-					dispatcher.forward(request, response);
-				}
-				
-				break;
-			}
 		}
 	}
 
