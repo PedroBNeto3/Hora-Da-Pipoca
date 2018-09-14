@@ -14,7 +14,9 @@ public class GeneroDAO
 	public Genero buscarGenero(int iId) throws IOException
 	{
 		Genero genero = null;
-		String sSQL = " SELECT id, nome FROM genero WHERE id = ? ";
+		String sSQL = "";
+
+		sSQL = " SELECT * FROM Genero WHERE id = ? ";
 
 		try ( Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sSQL); )
@@ -42,8 +44,12 @@ public class GeneroDAO
 
 	public ArrayList<Genero> listarGeneros() throws IOException
 	{
-		ArrayList<Genero> arrGeneros = new ArrayList<>();
-		String sSQL = " SELECT id, nome FROM genero ORDER BY nome";
+		ArrayList<Genero> arrGeneros = null;
+		String sSQL = "";
+
+		sSQL = " SELECT * FROM Genero ORDER BY nome ";
+
+		arrGeneros = new ArrayList<>();
 
 		try ( Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sSQL);

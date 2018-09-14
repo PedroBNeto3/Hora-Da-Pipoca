@@ -18,9 +18,9 @@ public class Filme
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(int idParam)
 	{
-		this.id = id;
+		id = idParam;
 	}
 
 	public String getTitulo()
@@ -28,9 +28,9 @@ public class Filme
 		return titulo;
 	}
 
-	public void setTitulo(String titulo)
+	public void setTitulo(String tituloParam)
 	{
-		this.titulo = titulo;
+		titulo = tituloParam;
 	}
 
 	public String getDescricao()
@@ -38,9 +38,9 @@ public class Filme
 		return descricao;
 	}
 
-	public void setDescricao(String descricao)
+	public void setDescricao(String descricaoParam)
 	{
-		this.descricao = descricao;
+		descricao = descricaoParam;
 	}
 
 	public double getPopularidade()
@@ -48,9 +48,9 @@ public class Filme
 		return popularidade;
 	}
 
-	public void setPopularidade(double popularidade)
+	public void setPopularidade(double popularidadeParam)
 	{
-		this.popularidade = popularidade;
+		popularidade = popularidadeParam;
 	}
 
 	public Date getDataLancamento()
@@ -58,9 +58,9 @@ public class Filme
 		return dataLancamento;
 	}
 
-	public void setDataLancamento(Date dataLancamento)
+	public void setDataLancamento(Date dataLancamentoParam)
 	{
-		this.dataLancamento = dataLancamento;
+		dataLancamento = dataLancamentoParam;
 	}
 
 	public String getPosterPath()
@@ -68,9 +68,9 @@ public class Filme
 		return posterPath;
 	}
 
-	public void setPosterPath(String posterPath)
+	public void setPosterPath(String posterPathParam)
 	{
-		this.posterPath = posterPath;
+		posterPath = posterPathParam;
 	}
 
 	public String getDiretor()
@@ -78,9 +78,9 @@ public class Filme
 		return diretor;
 	}
 
-	public void setDiretor(String diretor)
+	public void setDiretor(String diretorParam)
 	{
-		this.diretor = diretor;
+		diretor = diretorParam;
 	}
 
 	public Genero getGenero()
@@ -88,9 +88,9 @@ public class Filme
 		return genero;
 	}
 
-	public void setGenero(Genero genero)
+	public void setGenero(Genero generoParam)
 	{
-		this.genero = genero;
+		genero = generoParam;
 	}
 
 	@Override
@@ -100,5 +100,4 @@ public class Filme
 				+ ", dataLancamento=" + dataLancamento + ", posterPath=" + posterPath + ", diretor=" + diretor
 				+ ", genero=" + genero + "]";
 	}
-
 }

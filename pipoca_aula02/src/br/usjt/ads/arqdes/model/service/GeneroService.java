@@ -12,7 +12,7 @@ public class GeneroService
 
 	public GeneroService()
 	{
-		this.generoDAO = new GeneroDAO();
+		generoDAO = new GeneroDAO();
 	}
 
 	public Genero buscarGenero(int iId) throws IOException

@@ -11,25 +11,24 @@ import br.usjt.ads.arqdes.model.entity.Genero;
 
 public class GeneroDAO
 {
-
-	public Genero buscarGenero(int id) throws IOException
+	public Genero buscarGenero(int iId) throws IOException
 	{
 		Genero genero = null;
 		String sSQL = "";
 		
-		sSQL = "select id, nome from genero where id=?";
+		sSQL = " SELECT * FROM Genero WHERE id = ? ";
 
 		try ( Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sSQL); )
 		{
-			pst.setInt(1, id);
+			pst.setInt(1, iId);
 			
 			try ( ResultSet resultSet = pst.executeQuery(); )
 			{
 				if ( resultSet.next() )
 				{
 					genero = new Genero();
-					genero.setId(id);
+					genero.setId(iId);
 					genero.setNome(resultSet.getString("nome"));
 				}
 			}
@@ -45,10 +44,10 @@ public class GeneroDAO
 
 	public ArrayList<Genero> listarGeneros() throws IOException
 	{
-		ArrayList<Genero> arrGeneros = new ArrayList<>();
+		ArrayList<Genero> arrGeneros = null;
 		String sSQL = "";
 
-		sSQL = "select id, nome from genero order by nome";
+		sSQL = " SELECT * FROM Genero ORDER BY nome ";
 		
 		arrGeneros = new ArrayList<>();
 
@@ -56,7 +55,6 @@ public class GeneroDAO
 				PreparedStatement pst = conn.prepareStatement(sSQL);
 				ResultSet resultSet = pst.executeQuery(); )
 		{
-
 			while ( resultSet.next() )
 			{
 				Genero genero = new Genero();

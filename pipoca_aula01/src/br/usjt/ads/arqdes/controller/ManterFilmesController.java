@@ -33,7 +33,7 @@ public class ManterFilmesController extends HttpServlet
 		FilmeService fService = null;
 		GeneroService gService = null;
 		Filme filme = null;
-		ArrayList<Genero> generos = null;
+		ArrayList<Genero> arrGeneros = null;
 
 		sAcao = request.getParameter("acao");
 		
@@ -86,8 +86,8 @@ public class ManterFilmesController extends HttpServlet
 			case "generos":
 			{
 				gService = new GeneroService();
-				generos = gService.listarGeneros();
-				request.setAttribute("generos", generos);
+				arrGeneros = gService.listarGeneros();
+				request.setAttribute("generos", arrGeneros);
 	
 				dispatcher = request.getRequestDispatcher("MostrarGeneros.jsp");
 				dispatcher.forward(request, response);

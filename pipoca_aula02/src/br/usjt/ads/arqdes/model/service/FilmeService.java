@@ -15,11 +15,6 @@ public class FilmeService
 		filmeDAO = new FilmeDAO();
 	}
 
-	public Filme buscarFilme(int iId) throws IOException
-	{
-		return filmeDAO.buscarFilme(iId);
-	}
-
 	public Filme inserirFilme(Filme filme) throws IOException
 	{
 		int iId = filmeDAO.inserirFilme(filme);
@@ -27,14 +22,29 @@ public class FilmeService
 		
 		return filme;
 	}
+	
+	public void atualizarFilme(Filme filme) throws IOException
+	{
+		filmeDAO.atualizarFilme(filme);
+	}
+
+	public Filme buscarFilme(int iId) throws IOException
+	{
+		return filmeDAO.buscarFilme(iId);
+	}
 
 	public ArrayList<Filme> listarFilmes(String chave) throws IOException
 	{
 		return filmeDAO.listarFilmes(chave);
 	}
-
+	
 	public ArrayList<Filme> listarFilmes() throws IOException
 	{
 		return filmeDAO.listarFilmes();
+	}
+
+	public void removerFilme(int iId) throws IOException
+	{
+		filmeDAO.removerFilme(iId);
 	}
 }

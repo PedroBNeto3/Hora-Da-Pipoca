@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.usjt.ads.arqdes.model.entity.Filme;
+import br.usjt.ads.arqdes.model.entity.Genero;
 
 public class FilmeDAO
 {
-
 	public int inserirFilme(Filme filme) throws IOException
 	{
 		int iId = -1;
@@ -29,7 +29,16 @@ public class FilmeDAO
 			pst.setString(3, filme.getDiretor());
 			pst.setString(4, filme.getPosterPath());
 			pst.setDouble(5, filme.getPopularidade());
-			pst.setDate(6, new Date(filme.getDataLancamento().getTime()));
+			
+			if ( filme.getDataLancamento() != null )
+			{
+				pst.setDate(6, new Date(filme.getDataLancamento().getTime()));
+			}
+			else
+			{
+				pst.setDate(6, null);
+			}
+			
 			pst.setInt(7, filme.getGenero().getId());
 			pst.execute();
 
@@ -118,17 +127,17 @@ public class FilmeDAO
 		
 		return filme;
 	}
-	
+
 	public ArrayList<Filme> listarFilmes() throws IOException
 	{
-		ArrayList<Filme> arrFilmes = null;
 		String sSQL = "";
+		ArrayList<Filme> arrFilmes = null;
 		Filme filme = null;
-		GeneroDAO generoDAO = null;
+		Genero genero = null;
 		
-		sSQL = " SELECT * FROM Filme ORDER BY titulo ";
+		sSQL = " SELECT * FROM Filme f, Genero g WHERE f.id_genero = g.id ";
 		
-		arrFilmes = new ArrayList<Filme>();
+		arrFilmes = new ArrayList<>();
 		
 		try ( Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement pst = conn.prepareStatement(sSQL);
@@ -136,17 +145,18 @@ public class FilmeDAO
 		{
 			while ( resultSet.next() )
 			{
-				generoDAO = new GeneroDAO();
-
 				filme = new Filme();
-				filme.setId(resultSet.getInt("id"));
-				filme.setTitulo(resultSet.getString("titulo"));
-				filme.setDescricao(resultSet.getString("descricao"));
-				filme.setDiretor(resultSet.getString("diretor"));
-				filme.setPosterPath(resultSet.getString("posterpath"));
-				filme.setPopularidade(resultSet.getDouble("popularidade"));
-				filme.setDataLancamento(resultSet.getDate("data_lancamento"));
-				filme.setGenero(generoDAO.buscarGenero(resultSet.getInt("id_genero")));
+				filme.setId(resultSet.getInt("f.id"));
+				filme.setTitulo(resultSet.getString("f.titulo"));
+				filme.setDescricao(resultSet.getString("f.descricao"));
+				filme.setDiretor(resultSet.getString("f.diretor"));
+				filme.setPosterPath(resultSet.getString("f.posterpath"));
+				filme.setDataLancamento(resultSet.getDate("f.data_lancamento"));
+
+				genero = new Genero();
+				genero.setId(resultSet.getInt("g.id"));
+				genero.setNome(resultSet.getString("g.nome"));
+				filme.setGenero(genero);
 				
 				arrFilmes.add(filme);
 			}

@@ -10,9 +10,9 @@ public class Genero
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(int idParam)
 	{
-		this.id = id;
+		id = idParam;
 	}
 
 	public String getNome()
@@ -20,9 +20,9 @@ public class Genero
 		return nome;
 	}
 
-	public void setNome(String nome)
+	public void setNome(String nomeParam)
 	{
-		this.nome = nome;
+		nome = nomeParam;
 	}
 
 	@Override

@@ -8,20 +8,20 @@ import br.usjt.ads.arqdes.model.entity.Genero;
 
 public class GeneroService
 {
-	private GeneroDAO dao;
+	private GeneroDAO generoDAO;
 
 	public GeneroService()
 	{
-		this.dao = new GeneroDAO();
+		generoDAO = new GeneroDAO();
 	}
 
 	public Genero buscarGenero(int iId) throws IOException
 	{
-		return dao.buscarGenero(iId);
+		return generoDAO.buscarGenero(iId);
 	}
 
 	public ArrayList<Genero> listarGeneros() throws IOException
 	{
-		return dao.listarGeneros();
+		return generoDAO.listarGeneros();
 	}
 }
