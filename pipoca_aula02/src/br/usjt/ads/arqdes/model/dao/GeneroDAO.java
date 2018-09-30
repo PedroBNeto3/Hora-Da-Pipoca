@@ -9,67 +9,94 @@ import java.util.ArrayList;
 
 import br.usjt.ads.arqdes.model.entity.Genero;
 
-public class GeneroDAO
-{
-	public Genero buscarGenero(int iId) throws IOException
+public class GeneroDAO {
+
+	public Genero buscarGenero(int id) throws IOException
 	{
 		Genero genero = null;
-		String sSQL = "";
-		
-		sSQL = " SELECT * FROM Genero WHERE id = ? ";
+		String sSQL = "select id, nome from genero where id=?";
 
-		try ( Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(sSQL); )
+		try (Connection conn = ConnectionFactory.getConnection(); 
+				PreparedStatement prepStatement = conn.prepareStatement(sSQL);)
 		{
-			pst.setInt(1, iId);
-			
-			try ( ResultSet resultSet = pst.executeQuery(); )
+			prepStatement.setInt(1, id);
+
+			try (ResultSet resultSet = prepStatement.executeQuery();)
 			{
-				if ( resultSet.next() )
+				if (resultSet.next())
 				{
 					genero = new Genero();
-					genero.setId(iId);
+					genero.setId(id);
 					genero.setNome(resultSet.getString("nome"));
 				}
 			}
 		}
-		catch ( SQLException err )
+		catch (SQLException err)
 		{
 			err.printStackTrace();
 			throw new IOException(err);
 		}
-		
+
 		return genero;
 	}
 
 	public ArrayList<Genero> listarGeneros() throws IOException
 	{
 		ArrayList<Genero> arrGeneros = null;
+		Genero genero = null;
 		String sSQL = "";
 
-		sSQL = " SELECT * FROM Genero ORDER BY nome ";
-		
 		arrGeneros = new ArrayList<>();
+		sSQL = "select id, nome from genero order by nome";
 
-		try ( Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement pst = conn.prepareStatement(sSQL);
-				ResultSet resultSet = pst.executeQuery(); )
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement prepStatement = conn.prepareStatement(sSQL);
+				ResultSet resultSet = prepStatement.executeQuery();)
 		{
-			while ( resultSet.next() )
+			while (resultSet.next())
 			{
-				Genero genero = new Genero();
+				genero = new Genero();
 				genero.setId(resultSet.getInt("id"));
 				genero.setNome(resultSet.getString("nome"));
-				
 				arrGeneros.add(genero);
 			}
 		}
-		catch ( SQLException err )
+		catch (SQLException err)
 		{
 			err.printStackTrace();
 			throw new IOException(err);
 		}
-		
+
+		return arrGeneros;
+	}
+	
+	public ArrayList<Genero> buscarGenerosFilmes() throws IOException
+	{
+		ArrayList<Genero> arrGeneros = null;
+		Genero genero = null;
+		String sSQL = "";
+
+		arrGeneros = new ArrayList<>();
+		sSQL = "select distinct g.id, g.nome, f.id_genero from genero g, filme f where g.id = f.id_genero;";
+
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement prepStatement = conn.prepareStatement(sSQL);
+				ResultSet resultSet = prepStatement.executeQuery();)
+		{
+			while (resultSet.next())
+			{
+				genero = new Genero();
+				genero.setId(resultSet.getInt("g.id"));
+				genero.setNome(resultSet.getString("g.nome"));
+				arrGeneros.add(genero);
+			}
+		}
+		catch (SQLException err)
+		{
+			err.printStackTrace();
+			throw new IOException(err);
+		}
+
 		return arrGeneros;
 	}
 }

@@ -12,15 +12,15 @@ public class Filme
 	private String posterPath;
 	private String diretor;
 	private Genero genero;
-
+	
 	public int getId()
 	{
 		return id;
 	}
 
-	public void setId(int idParam)
+	public void setId(int id)
 	{
-		id = idParam;
+		this.id = id;
 	}
 
 	public String getTitulo()
@@ -28,9 +28,9 @@ public class Filme
 		return titulo;
 	}
 
-	public void setTitulo(String tituloParam)
+	public void setTitulo(String titulo)
 	{
-		titulo = tituloParam;
+		this.titulo = titulo;
 	}
 
 	public String getDescricao()
@@ -38,9 +38,9 @@ public class Filme
 		return descricao;
 	}
 
-	public void setDescricao(String descricaoParam)
+	public void setDescricao(String descricao)
 	{
-		descricao = descricaoParam;
+		this.descricao = descricao;
 	}
 
 	public double getPopularidade()
@@ -48,9 +48,9 @@ public class Filme
 		return popularidade;
 	}
 
-	public void setPopularidade(double popularidadeParam)
+	public void setPopularidade(double popularidade)
 	{
-		popularidade = popularidadeParam;
+		this.popularidade = popularidade;
 	}
 
 	public Date getDataLancamento()
@@ -58,9 +58,9 @@ public class Filme
 		return dataLancamento;
 	}
 
-	public void setDataLancamento(Date dataLancamentoParam)
+	public void setDataLancamento(Date dataLancamento)
 	{
-		dataLancamento = dataLancamentoParam;
+		this.dataLancamento = dataLancamento;
 	}
 
 	public String getPosterPath()
@@ -68,9 +68,9 @@ public class Filme
 		return posterPath;
 	}
 
-	public void setPosterPath(String posterPathParam)
+	public void setPosterPath(String posterPath)
 	{
-		posterPath = posterPathParam;
+		this.posterPath = posterPath;
 	}
 
 	public String getDiretor()
@@ -78,9 +78,9 @@ public class Filme
 		return diretor;
 	}
 
-	public void setDiretor(String diretorParam)
+	public void setDiretor(String diretor)
 	{
-		diretor = diretorParam;
+		this.diretor = diretor;
 	}
 
 	public Genero getGenero()
@@ -88,9 +88,9 @@ public class Filme
 		return genero;
 	}
 
-	public void setGenero(Genero generoParam)
+	public void setGenero(Genero genero)
 	{
-		genero = generoParam;
+		this.genero = genero;
 	}
 
 	@Override

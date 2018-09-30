@@ -31,7 +31,7 @@
                         <div class="modal-footer">
                             <form action="manterfilmes.do" method="post">
                                 <input type="hidden" name="id" id="id_excluir" />
-                                <button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
+                                <button type="submit" class="btn btn-primary" name="acao" value="excluir">Sim</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
                             </form>
                         </div>
@@ -71,7 +71,7 @@
                 <div id="list" class="row">
 
                     <div class="table-responsive col-md-12">
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>

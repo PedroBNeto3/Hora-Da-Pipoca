@@ -4,15 +4,15 @@ public class Genero
 {
 	private int id;
 	private String nome;
-
+	
 	public int getId()
 	{
 		return id;
 	}
 
-	public void setId(int idParam)
+	public void setId(int id)
 	{
-		id = idParam;
+		this.id = id;
 	}
 
 	public String getNome()
@@ -20,11 +20,11 @@ public class Genero
 		return nome;
 	}
 
-	public void setNome(String nomeParam)
+	public void setNome(String nome)
 	{
-		nome = nomeParam;
+		this.nome = nome;
 	}
-
+	
 	@Override
 	public String toString()
 	{

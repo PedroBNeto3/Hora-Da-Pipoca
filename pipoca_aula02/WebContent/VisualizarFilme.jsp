@@ -30,7 +30,7 @@
                             <div class="modal-footer">
                                 <form action="manterfilmes.do" method="post">
                                     <input type="hidden" name="id" value="${filme.id}" />
-                                    <button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
+                                    <button type="submit" class="btn btn-primary" name="acao" value="excluir">Sim</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
                                 </form>
                             </div>
@@ -80,11 +80,18 @@
 		<div id="actions" class="row">
 			<div class="col-md-12">
 				<a href="manterfilmes.do?acao=editar&id=${filme.id}" class="btn btn-primary">Editar</a> 
-				<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Excluir</a> 
-				<a href="ListarFilmes.jsp" class="btn btn-default">Voltar</a>
+				<a class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-filme="${filme.id}">Excluir</a> 
+				<a href="manterfilmes.do?acao=listar" class="btn btn-default">Voltar</a>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+        $("#delete-modal").on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var recipient = button.data('filme');
+            $("#id_excluir").val(recipient);
+        });
+    </script>
 	<script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>
