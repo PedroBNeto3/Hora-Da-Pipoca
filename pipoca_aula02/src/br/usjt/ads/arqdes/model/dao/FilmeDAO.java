@@ -48,7 +48,7 @@ public class FilmeDAO {
 			try(PreparedStatement prepStatementAux = conn.prepareStatement(sQuery);
 				ResultSet resultSet = prepStatementAux.executeQuery();)
 			{
-				if (resultSet.next()
+				if (resultSet.next())
 				{
 					iId = resultSet.getInt(1);
 				}
